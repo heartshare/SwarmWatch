@@ -1,0 +1,106 @@
+#nodes {
+    margin: 0 auto 0 auto;
+    width: 80%;
+    display: flex;
+    color: #ffffff;
+    padding: 10px;
+}
+
+.node {
+    align-self: flex-start;
+    background-color: #4f4b54;
+    margin: 10px;
+    padding: 7px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.node-title {
+    font-weight: bold;
+}
+
+.node-rank {
+    font-size: 14px;
+}
+
+.node-availability {
+    font-size: 14px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.node-ip {
+    font-size: 11px;
+    margin: 5px 0 10px 0;
+}
+
+.node-platform {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 12px;
+    color: #b3b3b3ff;
+}
+
+#date {
+    color: #ffffff;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.container-name {
+    color: #ffffff;
+}
+
+.container-image {
+    font-size: 8px;
+    font-style: italic;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.container-command {
+    margin: 5px 0 5px 0;
+    word-wrap: break-word;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.active {
+    border: 2px solid green;
+
+}
+
+.availability-not-active {
+    color: #fafa56;
+
+}
+
+.preparing {
+    border: 3px solid yellow;
+
+}
+
+.inactive {
+    border: 2px dotted red;
+}
+
+img {
+    height: 40px;
+    width: 40px;
+    object-fit: scale-down;
+}
+
+body {
+    background-color: #00203f;
+    font-family: Verdana, sans-serif;
+    font-size: 18px;
+}

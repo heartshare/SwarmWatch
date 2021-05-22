@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  swarmwatch:
+    image: swarmwatch:latest
+    ports:
+      - "81:50001"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      replicas: 1
+      placement:
+        max_replicas_per_node: 1
+        constraints:
+          - "node.role==manager"
+          - "node.platform.os==linux"
+      restart_policy:
+        condition: any
+        delay: 5s
