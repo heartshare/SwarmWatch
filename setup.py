@@ -1,28 +1,31 @@
-import setuptools
+"""
+Copyright (C) 2021 https://github.com/binaryhabitat.
 
-with open('README.md', 'r', encoding="UTF-8") as fh:
-    long_description = fh.read()
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+"""
 
-setuptools.setup(
-    name='SwarmWatch',
-    version='1.0',
-    description="SwarmWatch is a library for visualizing a Docker Swarm",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    author='BinaryHabitat',
-    packages=setuptools.find_packages(exclude=["tests.*", "tests"]),
-    python_requires='>=3.8',
-    project_urls={
-        'Source': 'https://github.com/binaryhabitat/SwarmWatch'
-    },
+from setuptools import find_packages, setup
+
+setup(
     install_requires=[
-        'Flask>=1.1.2, <2.0',
-        'python-dateutil',
-        'docker>=5'
+        "Flask >=1.1.2, <2.0",
+        "python-dateutil",
+        "docker >=5"
     ],
-    classifiers=[
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)'
-    ],
+    extras_require={
+        "dev": [
+            "isort",
+            "pyquotes",
+            "wheel"
+        ]
+    },
+    packages=find_packages(
+        exclude=[
+            "tests",
+            "tests.*"
+        ]
+    ),
+    python_requires=">=3.9",
     zip_safe=False
 )

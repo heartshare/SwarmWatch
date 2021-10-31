@@ -1,10 +1,17 @@
-import docker
-import time
+"""
+Copyright (C) 2021 https://github.com/binaryhabitat.
+
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+"""
+
+import re
 import sys
 import threading
-import re
+import time
+
+import docker
 from dateutil import parser
-from typing import List
 
 
 class SwarmState:
@@ -25,7 +32,7 @@ class SwarmState:
             # Gather node metadata
             for node in self._client.nodes():
                 try:
-                    data[node['ID']] = self.node_factory(node)
+                    data[node["ID"]] = self.node_factory(node)
                 except KeyError:
                     continue
 
@@ -35,42 +42,42 @@ class SwarmState:
             # Gather container metadata and append to the host node
             for task in self._client.tasks():
                 try:
-                    data[task['NodeID']]['containers'].append(self.container_factory(task, services))
+                    data[task["NodeID"]]["containers"].append(self.container_factory(task, services))
                 except KeyError:
                     continue
 
             self.json = data
 
     @staticmethod
-    def container_factory(container: dict, services: List[dict]) -> dict:
+    def container_factory(container: dict, services: list[dict]) -> dict:
         for service in services:
-            if service['ID'] == container['ServiceID']:
+            if service["ID"] == container["ServiceID"]:
                 container_name = f"{service['Spec']['Name']}.{container['Slot']}"
                 break
         else:
-            container_name = container.get('ServiceID', 'UNKNOWN')
+            container_name = container.get("ServiceID", "UNKNOWN")
 
-        return {'id': container.get('ID'),
-                'name': container_name,
-                'updated': parser.isoparse(container.get('UpdatedAt', '')).strftime("%H:%M:%S (%d %B)"),
-                'image': re.split("@", container.get('Spec', {}).get('ContainerSpec', {}).get('Image', '?'), 1)[0],
-                'service_id': container.get('ServiceID'),
-                'desired_state': container.get('DesiredState'),
-                'status': container.get('Status', {}).get('State'),
-                'command': " ".join(container.get('Spec', {}).get('ContainerSpec', {}).get('Args', [' ']))}
+        return {"id": container.get("ID"),
+                "name": container_name,
+                "updated": parser.isoparse(container.get("UpdatedAt", "")).strftime("%H:%M:%S (%d %B)"),
+                "image": re.split("@", container.get("Spec", {}).get("ContainerSpec", {}).get("Image", "?"), 1)[0],
+                "service_id": container.get("ServiceID"),
+                "desired_state": container.get("DesiredState"),
+                "status": container.get("Status", {}).get("State"),
+                "command": " ".join(container.get("Spec", {}).get("ContainerSpec", {}).get("Args", [" "]))}
 
     @staticmethod
     def node_factory(node: dict) -> dict:
-        return {'id': node['ID'],
-                'hostname': node['Description']['Hostname'],
-                'status': node['Status']['State'],
-                'availability': node['Spec']['Availability'],
-                'manager': node['Spec']['Role'] in ('manager', 'leader'),
-                'os': node['Description']['Platform']['OS'],
-                'ip': node['Status']['Addr'],
-                'containers': []}
+        return {"id": node["ID"],
+                "hostname": node["Description"]["Hostname"],
+                "status": node["Status"]["State"],
+                "availability": node["Spec"]["Availability"],
+                "manager": node["Spec"]["Role"] in ("manager", "leader"),
+                "os": node["Description"]["Platform"]["OS"],
+                "ip": node["Status"]["Addr"],
+                "containers": []}
 
     @staticmethod
     def _get_docker_url() -> str:
         # Expecting to deal with daemon exposed to this application, via either of these means
-        return 'npipe:////./pipe/docker_engine' if sys.platform == 'win32' else 'unix:///var/run/docker.sock'
+        return "npipe:////./pipe/docker_engine" if sys.platform == "win32" else "unix:///var/run/docker.sock"

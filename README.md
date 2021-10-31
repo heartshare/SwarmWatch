@@ -1,8 +1,8 @@
-# SwarmWatch🕵️
+# SwarmWatch
 
-SwarmWatch is a project for visualizing Docker Swarms.
+SwarmWatch is a project for monitoring a Docker setup running in swarm mode.
 
-![](example/example.gif)
+![](examples/example.gif)
 
 ### Requirements
 
@@ -23,4 +23,3 @@ For two main reasons this should not be exposed to the internet. It is a tool fo
 
 - It is using Flask's built-in WSGI which has had known vulnerabilities
 - It exposes the docker socket inside the container
-
