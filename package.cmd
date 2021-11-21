@@ -14,10 +14,10 @@ for %%d in ("build" "dist" ".mypy_cache") do (
    rd /s /q "%%~d" 2>nul
 )
 
-echo [1m[+] Checking requirements.[0m
+echo [1m[+] Validating requirements, install/upgrade as necessary.[0m
 for %%d in ("isort" "pyquotes" "mypy" "wheel") do (
-   echo - Installing %%~d.
-   pip install "%%~d" --quiet
+   echo - %%~d.
+   pip install "%%~d" --quiet --upgrade
 )
 if %errorlevel% neq 0 goto :ERROR
 

@@ -1,4 +1,4 @@
-# SwarmWatch Contributions
+# Contributing
 
 Thank you for considering contributing to this project, SwarmWatch is maintained by a sole developer
 and any contributions are most welcome.
